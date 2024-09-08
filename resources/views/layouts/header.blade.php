@@ -173,24 +173,31 @@
                       </li>
                   </div>
               </div>
-              <div class="nav-item dropdown">
-                  <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
-                  <span class="avatar avatar-sm" style="background-image: url({{ asset('assets/dist/img/000m.jpg)')}}"></span>
-                  <div class="d-none d-xl-block ps-2">
-                      <div>Yegen</div>
-                      <div class="mt-1 small text-muted">Laravel Developer</div>
-                  </div>
-                  </a>
-                  <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                  <a href="#" class="dropdown-item">Status</a>
-                  <a href="#" class="dropdown-item">Profile</a>
-                  <a href="#" class="dropdown-item">Feedback</a>
-                  <div class="dropdown-divider"></div>
-                  <a href="{{ asset('assets/settings.html')}}" class="dropdown-item">Settings</a>
-                  <a href="{{ asset('assets/sign-in.html')}}" class="dropdown-item">Logout</a>
-                  </div>
-              </div>
-              </div>
-      </div>
+              @auth
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
+                    <span class="avatar avatar-sm" style="background-image: url({{ asset('assets/dist/img/000m.jpg)')}}"></span>
+                    <div class="d-none d-xl-block ps-2">
+                        <div>Yegen</div>
+                        <div class="mt-1 small text-muted">Laravel Developer</div>
+                    </div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                    <a href="#" class="dropdown-item">Status</a>
+                    <a href="#" class="dropdown-item">Profile</a>
+                    <a href="#" class="dropdown-item">Feedback</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="{{ asset('assets/settings.html')}}" class="dropdown-item">Settings</a>
+                    <a href="{{ asset('assets/sign-in.html')}}" class="dropdown-item">Logout</a>
+                    </div>
+                </div>
+                @else
+                    <a href="/login" class="btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-user-circle"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path><path d="M12 10m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path><path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855"></path></svg>                        <span class="nav-link-title">
+                        Login
+                    </a>
+                @endauth
+            </div>
+        </div>
     </div>
-  </header>
+</header>
