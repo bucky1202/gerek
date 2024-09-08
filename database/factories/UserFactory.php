@@ -16,6 +16,8 @@ class UserFactory extends Factory
      */
     protected static ?string $password;
 
+    // Static properties to store used numbers
+    private static $usedNumbers = [];
     /**
      * Define the model's default state.
      *
@@ -24,10 +26,11 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
+            'phone_number' => $this->generateUniquePhoneNumber(),
+            'password' =>  Hash::make('password'),
+            'role_id' => $this->faker->numberBetween(1, 2),
+            'status'=> $this->faker->randomElement(['active','inactive','banned']),
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
         ];
     }
@@ -40,5 +43,38 @@ class UserFactory extends Factory
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
         ]);
+    }
+
+
+    /**
+     * Generate a unique phone number within the specified ranges.
+     *
+     * @return string
+     */
+    private function generateUniquePhoneNumber()
+    {
+        do {
+            $number = $this->generateRandomPhoneNumber();
+        }
+        while (in_array($number, self::$usedNumbers));
+
+        // Add the number to the list of used numbers
+        self::$usedNumbers[] = $number;
+
+        return (string) $number;
+    }
+
+    /**
+     * Generate a random phone number within the specified ranges.
+     *
+     * @return int
+     */
+    private function generateRandomPhoneNumber()
+    {
+        $range = mt_rand(0, 1) === 0
+            ? [61000001, 65999999]
+            : [71000001, 71999999];
+
+        return mt_rand($range[0], $range[1]);
     }
 }
