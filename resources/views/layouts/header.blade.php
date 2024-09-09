@@ -176,19 +176,20 @@
               @auth
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
-                    <span class="avatar avatar-sm" style="background-image: url({{ asset('assets/dist/img/000m.jpg)')}}"></span>
+                    <span class="avatar avatar-sm" style="background-image: url({{ Auth::user()->profile->avatar}}"></span>
                     <div class="d-none d-xl-block ps-2">
-                        <div>Yegen</div>
-                        <div class="mt-1 small text-muted">Laravel Developer</div>
+                        <div>{{ Auth::user()->profile->fullname}}</div>
+                        <div class="mt-1 small text-muted">{{ Auth::user()->profile->job_title}}</div>
                     </div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <a href="#" class="dropdown-item">Status</a>
+                    <a href="#" class="dropdown-item">Status: {{ Auth::user()->status }}</a>
                     <a href="#" class="dropdown-item">Profile</a>
-                    <a href="#" class="dropdown-item">Feedback</a>
-                    <div class="dropdown-divider"></div>
-                    <a href="{{ asset('assets/settings.html')}}" class="dropdown-item">Settings</a>
-                    <a href="{{ asset('assets/sign-in.html')}}" class="dropdown-item">Logout</a>
+
+                    <form method="POST" action="{{ route('login.destroy') }}">
+                        @csrf
+                        <button type="submit" class="dropdown-item">Logout</button>
+                    </form>
                     </div>
                 </div>
                 @else
