@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Profile;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -25,6 +26,9 @@ class DatabaseSeeder extends Seeder
         Role::factory()->create(['name' => 'admin']);
         Role::factory()->create(['name' => 'user']);
 
-        User::factory()->count(100)->create();
-    }
+        User::factory(100)->create()->each(function ($user) {
+            Profile::factory()->create([
+                'user_id' => $user->id,
+            ]);
+        });    }
 }
