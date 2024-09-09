@@ -10,25 +10,32 @@
                 </div> --}}
                 <div class="card-body">
                 <h2 class="h2 text-center mb-4">Login to your account</h2>
-                <form action="./" method="get" autocomplete="off" novalidate>
+                <form action="{{ route('login.store') }}" method="post" autocomplete="off" novalidate>
+                    @csrf
+                    @if ($errors->any())
+                        <div style="color: red">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <div class="mb-3">
                         <label class="form-label">Your phone number:</label>
                         <div class="input-group mb-2">
                             <span class="input-group-text">
                                 +993
                             </span>
-                            <input type="text" class="form-control" placeholder="61123456" autocomplete="off">
+                            <input type="text" name="phone_number" class="form-control" placeholder="61123456" autocomplete="off">
                         </div>
                     </div>
-
-
                     <div class="mb-2">
                         <label class="form-label">
                             Your Password
-
                         </label>
                         <div class="input-group input-group-flat">
-                            <input type="password" class="form-control" id="password-field" placeholder="Your password"  autocomplete="off">
+                            <input type="password" name="password" class="form-control" id="password-field" placeholder="Your password"  autocomplete="off">
                             <span class="input-group-text">
                             <a href="#" class="link-secondary" id="toggle-password" title="Show password" data-bs-toggle="tooltip"><!-- Download SVG icon from http://tabler-icons.io/i/eye -->
                                 <svg id="svg" xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="12" cy="12" r="2" /><path d="M22 12c-2.667 4.667 -6 7 -10 7s-7.333 -2.333 -10 -7c2.667 -4.667 6 -7 10 -7s7.333 2.333 10 7" /></svg>
@@ -38,7 +45,7 @@
                     </div>
                     <div class="mb-2">
                     <label class="form-check">
-                        <input type="checkbox" class="form-check-input"/>
+                        <input type="checkbox" name="remember_me" class="form-check-input"/>
                         <span class="form-label-description">
                             <a href="./forgot-password.html">I forgot password</a>
                         </span>
@@ -67,7 +74,7 @@
                 </div>
             </div>
             <div class="text-center text-muted mt-3">
-                Don't have account yet? <a href="./sign-up.html" tabindex="-1">Sign up</a>
+                Don't have account yet? <a href="{{ route('register.create') }}" tabindex="-1">Sign up</a>
             </div>
         </div>
     </div>
