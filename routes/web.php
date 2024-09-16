@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\SessionController;
+use App\Models\Vacancy;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\SessionController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\User\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +18,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('pages.index');
+
+
+    $vacancies = Vacancy::with('user.profile')->get();
+                    //  ->whereBetween('opening_time', [now()->subMonth(), now()])
+                    //  ->where('status', 'open')
+    return view('pages.index',compact('vacancies'));
 })->name('home');
 
 
@@ -28,10 +35,15 @@ Route::middleware('guest')->group(function () {
     Route::get('/register', [RegisterController::class,'create'])->name('register.create');
     Route::post('/register', [RegisterController::class,'store'])->name('register.store');
 
-    Route::get('/forgot-password', [RegisterController::class,'create'])->name('register.create');
-    Route::post('/forgot-password', [RegisterController::class,'store'])->name('register.store');
+
+    // Route::get('/forgot-password', [RegisterController::class,'create'])->name('register.create');
+    // Route::post('/forgot-password', [RegisterController::class,'store'])->name('register.store');
 
 
 });
+
+Route::get('/profile', [ProfileController::class,'create'])->name('user.profile.create');
+Route::post('/profile', [ProfileController::class,'store'])->name('user.profile.store');
+
 
 Route::post('/logout',[SessionController::class,'destroy'])->middleware('auth')->name('login.destroy');
