@@ -17,8 +17,13 @@ class SessionController extends Controller
     public function store()
     {
         $attributes = request()->validate([
-            'phone_number' => ['required', 'exists:users,phone_number'],
+            'phone_number' => ['required','integer', 'exists:users,phone_number'],
             'password' => ['required'],
+        ],
+        [
+            'phone_number.required' => 'Please enter your phone number.',
+            'phone_number.integer' => 'Please enter your phone number correctly.',
+            'phone_number.exists' => 'The phone number you entered does not exist in our records.',
         ]);
 
         if (! Auth::attempt($attributes)) {
