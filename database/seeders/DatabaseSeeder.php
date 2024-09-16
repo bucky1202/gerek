@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Profile;
+use App\Models\Vacancy;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -30,5 +31,8 @@ class DatabaseSeeder extends Seeder
             Profile::factory()->create([
                 'user_id' => $user->id,
             ]);
-        });    }
+        });
+
+        Vacancy::factory(100)->create();
+    }
 }
