@@ -30,12 +30,14 @@ class RegisterController extends Controller
 
         $request->validate([
             'phone_number' => ['required', 'integer','unique:users', new PhoneNumberRange],
+            'email' => 'required|email|',
             'password' => 'required|string|confirmed|min:5',
             'agreement' => 'required|accepted',
         ]);
 
         $user = User::create([
             'phone_number' => $request->phone_number,
+            'email' => $request->email,
             'password' => Hash::make($request->password),
             'role_id' => 2,
         ]);

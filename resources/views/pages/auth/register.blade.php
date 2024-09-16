@@ -27,6 +27,15 @@
                     <input type="text" name="phone_number" value="{{ old('phone_number') }}" class="form-control" placeholder="61123456" autocomplete="off">
                 </div>
             </div>
+            <div class="mb-3">
+                <label class="form-label">Your email address:</label>
+                <div class="input-group mb-2">
+                    <span class="input-group-text">
+                        @
+                    </span>
+                    <input type="text" name="email" value="{{ old('email') }}" class="form-control" placeholder="test@gmail.com" autocomplete="off">
+                </div>
+            </div>
             <div class="mb-2">
                 <label class="form-label">
                     Your Password
