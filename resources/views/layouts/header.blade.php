@@ -175,7 +175,7 @@
               </div>
               @auth
                 <div class="nav-item dropdown">
-                    <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
+                    {{-- <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
                     <span class="avatar avatar-sm" style="background-image: url({{ Auth::user()->profile->avatar}}"></span>
                     <div class="d-none d-xl-block ps-2">
                         <div>{{ Auth::user()->profile->fullname}}</div>
@@ -184,7 +184,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                     <a href="#" class="dropdown-item">Status: {{ Auth::user()->status }}</a>
-                    <a href="#" class="dropdown-item">Profile</a>
+                    <a href="{{ route('user.profile.create') }}" class="dropdown-item">Profile</a> --}}
 
                     <form method="POST" action="{{ route('login.destroy') }}">
                         @csrf
